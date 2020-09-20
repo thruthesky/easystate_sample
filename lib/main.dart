@@ -35,14 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('제일 쉬운 상태 관리'),
+        title: Text('EasyState'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'EasyState 상태 관리 숫자 증가 :',
+              'EasyState Counter :',
             ),
             
             StreamBuilder(
