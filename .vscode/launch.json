@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "easyman_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "easystate",
+            "cwd": "packages/easystate",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "EasyState Example",
+            "request": "launch",
+            "type": "dart",
+            "program": "packages/easystate/example/main.dart"
+        }
+    ]
+}
