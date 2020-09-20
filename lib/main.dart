@@ -1,18 +1,18 @@
+import 'package:easystate/easystate.dart';
 import 'package:flutter/material.dart';
 
-import 'package:easystate/easystate.dart';
 
 class CountModel extends EasyState {
-  int _count = 0;
-  dynamic count;
-  CountModel() {
-    count = init<int>(0);
-  }
+  int value = 0;
+  int value2 = 0;
   increase() {
-    _count ++;
-    count.add(_count);
+    value ++;
+    value2 += value;
+    update();
   }
 }
+CountModel countModel = CountModel();
+
 
 void main() {
   runApp(MyApp());
@@ -43,11 +43,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  CountModel countModel = CountModel();
+
 
   @override
   Widget build(BuildContext context) {
 
+print(countModel.runtimeType);
     
     return Scaffold(
       appBar: AppBar(
@@ -61,9 +62,16 @@ class _MyHomePageState extends State<MyHomePage> {
               'Easystate count:',
             ),
             StreamBuilder(
-              stream: countModel.count,
+              stream: countModel.stream,
               builder: (context, snapshot) => Text(
-                snapshot.data.toString(),
+                snapshot.data != null ? snapshot.data.value.toString() : '0',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            StreamBuilder(
+              stream: countModel.stream,
+              builder: (context, snapshot) => Text(
+                snapshot.data != null ? snapshot.data.value2.toString() : '0',
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),
@@ -71,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => countModel.increase(),
+        onPressed: ()  { 
+          countModel.increase();
+          },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
