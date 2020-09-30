@@ -5,21 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "easyman_app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "easystate",
-            "cwd": "packages/easystate",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
             "name": "EasyState Example",
             "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "EasyState Default",
+            "request": "launch",
             "type": "dart",
-            "program": "packages/easystate/example/main.dart"
+            "program": "lib/main.default.dart"
         }
     ]
 }
