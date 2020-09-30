@@ -1,14 +1,6 @@
-
 import 'package:easystate/easystate.dart';
 import 'package:flutter/material.dart';
 
-class PlusModel extends EasyState {
-  int value = 0;
-  plus() {
-    value += value + 1;
-    update();
-  }
-}
 class CountModel extends EasyState {
   int value = 0;
   increase() {
@@ -16,7 +8,18 @@ class CountModel extends EasyState {
     update();
   }
 }
+
 CountModel countModel = CountModel();
+
+
+class PlusModel extends EasyState {
+  int data = 0;
+  plus() {
+    data += data + 1;
+    update();
+  }
+}
+
 
 void main() {
   PlusModel plusModel = PlusModel();
@@ -24,10 +27,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: MyHomePage(),
     );
@@ -62,20 +63,29 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             EasyBuilder(
-              builder: (context, snapshot) => Text(snapshot.data.value.toString()),
+              builder: (context, model) => Text(
+                model.value.toString(),
+              ),
               model: countModel,
             ),
             EasyBuilder<CountModel>(
-              builder: (context, snapshot) => Text(snapshot.data.value.toString()),
+              builder: (context, model) => Text(
+                model.value.toString(),
+              ),
             ),
             EasyBuilder<PlusModel>(
-              builder: (context, snapshot) => Text(snapshot.data.value.toString()),
+              builder: (context, PlusModel model) => Text(
+                model.data.toString()
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () { countModel.increase(); EasyState.get<PlusModel>().plus(); },
+        onPressed: () {
+          countModel.increase();
+          EasyState.get<PlusModel>().plus();
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

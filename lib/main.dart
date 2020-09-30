@@ -49,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
               'EasyState Counter :',
             ),
             EasyBuilder(
-              builder: (context, snapshot) => Text(
-                snapshot.data.value.toString(),
+              builder: (context, model) => Text(
+                model.value.toString(),
               ),
               model: countModel,
             ),
