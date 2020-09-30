@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () { countModel.increase(); EasyState.find<PlusModel>().plus(); },
+        onPressed: () { countModel.increase(); EasyState.get<PlusModel>().plus(); },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
