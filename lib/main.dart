@@ -11,10 +11,9 @@ class CountModel extends EasyState {
   }
 }
 
-
-CountModel countModel = CountModel();
-
+CountModel countModel;
 void main() {
+  countModel = CountModel();
   runApp(MyApp());
 }
 
