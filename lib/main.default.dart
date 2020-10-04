@@ -22,7 +22,7 @@ class PlusModel extends EasyState {
 
 
 void main() {
-  PlusModel plusModel = PlusModel();
+  PlusModel();
   runApp(MyApp());
 }
 

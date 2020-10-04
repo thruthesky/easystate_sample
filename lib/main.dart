@@ -1,19 +1,13 @@
-import 'dart:async';
-
+import 'package:easyman_app/main.default.dart';
+import 'package:easyman_app/new.screen.dart';
+import 'package:easyman_app/test.model.dart';
 import 'package:easystate/easystate.dart';
 import 'package:flutter/material.dart';
-
-class CountModel extends EasyState {
-  int value = 0;
-  increase() {
-    value++;
-    update();
-  }
-}
 
 CountModel countModel;
 void main() {
   countModel = CountModel();
+  TestModel(); // You can instantiate the model here.
   runApp(MyApp());
 }
 
@@ -35,10 +29,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-
+    TestModel(); // Or you can instantiate before use.
     return Scaffold(
       appBar: AppBar(
-        title: Text('EasyState Example'),
+        title: Text('EasyState Main'),
       ),
       body: Center(
         child: Column(
@@ -47,18 +41,28 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'EasyState Counter :',
             ),
-            EasyBuilder(
-              builder: (context, model) => Text(
-                model.value.toString(),
-              ),
-              model: countModel,
-            ),
-            StreamBuilder(
+            StreamBuilder( // use StreamBuilder with model
               stream: countModel.stream,
               initialData: countModel,
               builder: (context, snapshot) => Text(
                 snapshot.data.value.toString(),
               ),
+            ),
+            EasyBuilder<TestModel>( // use EasyBuilder with generic
+              builder: (context, model) => Text(model.value.toString()),
+            ),
+            EasyBuilder( // use EasyBuilder passing model.
+              builder: (context, model) => Text(
+                model.value.toString(),
+              ),
+              model: countModel,
+            ),
+            RaisedButton(
+              onPressed: () {
+                countModel.increase();
+                EasyState.get<TestModel>().decrease();
+              },
+              child: Text('Change Value'),
             ),
             RaisedButton(
               onPressed: () => Navigator.of(context).push(
@@ -68,68 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              child: Text('New Screen'),
+              child: Text('Open New Screen'),
             )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => countModel.increase(),
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class NewScreen extends StatefulWidget {
-  const NewScreen({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _NewScreenState createState() => _NewScreenState();
-}
-
-class _NewScreenState extends State<NewScreen> {
-  StreamSubscription stream;
-
-  @override
-  void initState() {
-    stream = countModel.stream.listen((value) => setState(() => null));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    stream.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Saved Suggestions'),
-      ),
-      body: Column(
-        children: [
-          Text(countModel.value.toString()),
-          RaisedButton(
-            onPressed: () => setState(() => countModel.increase()),
-            child: Text('Increase with setState()'),
-          ),
-          Divider(),
-          Text(countModel.value.toString()),
-          RaisedButton(
-            onPressed: () => setState(() => countModel.increase()),
-            child: Text('Increase with stream listing & setState()'),
-          ),
-          RaisedButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Back'),
-          ),
-        ],
       ),
     );
   }
